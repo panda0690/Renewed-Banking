@@ -1,0 +1,364 @@
+:root {
+  --mdt-bg: #0a0a0b;
+  --mdt-panel: #0e0e0f;
+  --mdt-panel-raised: #171718;
+  --mdt-panel-soft: #141415;
+  --mdt-accent: #a855f7;
+  --mdt-accent-light: #d8b4fe;
+  --mdt-accent-hover: #c084fc;
+  --mdt-text: #f4e8ff;
+  --mdt-muted: #9d90b8;
+  --mdt-border: rgba(255, 255, 255, .10);
+  --mdt-border-strong: rgba(255, 255, 255, .16);
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: Inter, "Segoe UI", Arial, sans-serif !important;
+}
+
+body {
+  color: var(--mdt-text);
+  background: transparent !important;
+  letter-spacing: .01em;
+}
+
+button,
+input,
+select,
+textarea {
+  color: var(--mdt-text);
+}
+
+input,
+select,
+textarea {
+  background-color: rgba(255, 255, 255, .055) !important;
+  border-color: var(--mdt-border-strong) !important;
+  border-radius: 8px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--mdt-accent-light) !important;
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, .18) !important;
+}
+
+[class~="bg-fleeca-bg"] { background-color: var(--mdt-bg) !important; }
+[class~="bg-fleeca-card"] { background-color: var(--mdt-panel) !important; }
+[class~="bg-fleeca-hover"] { background-color: rgba(216, 180, 254, .10) !important; }
+[class~="bg-fleeca-green"] { background-color: var(--mdt-accent) !important; }
+[class~="bg-fleeca-dark-green"] { background-color: #7e22ce !important; }
+[class~="text-fleeca-green"],
+[class~="text-fleeca-light-green"] { color: var(--mdt-accent-light) !important; }
+[class~="text-fleeca-text"] { color: var(--mdt-text) !important; }
+[class~="text-fleeca-text-secondary"] { color: var(--mdt-muted) !important; }
+[class~="border-fleeca-border"] { border-color: var(--mdt-border) !important; }
+[class~="border-fleeca-green"] { border-color: rgba(216, 180, 254, .55) !important; }
+[class~="border-fleeca-green/20"] { border-color: rgba(216, 180, 254, .20) !important; }
+[class~="bg-fleeca-green/10"] { background-color: rgba(168, 85, 247, .10) !important; }
+[class~="bg-green-900/30"] { background-color: rgba(168, 85, 247, .12) !important; }
+[class~="text-green-400"] { color: #d8b4fe !important; }
+[class~="border-green-800/50"] { border-color: rgba(216, 180, 254, .28) !important; }
+
+.btn-primary,
+[class~="bg-fleeca-green"] {
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 52%, #7e22ce 100%) !important;
+  color: #fff !important;
+  border-color: rgba(216, 180, 254, .34) !important;
+  box-shadow: 0 7px 20px rgba(168, 85, 247, .20);
+}
+
+.btn-primary:hover,
+[class~="bg-fleeca-green"]:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 8px 22px rgba(168, 85, 247, .28);
+}
+
+.btn-secondary,
+[class~="bg-fleeca-hover"] {
+  border-color: var(--mdt-border-strong) !important;
+}
+
+.clean-card,
+.account-card,
+[class~="bg-fleeca-card"] {
+  border-color: var(--mdt-border) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .28) !important;
+}
+
+.account-card.active,
+.account-card:hover {
+  border-left-color: var(--mdt-accent) !important;
+}
+
+.category-btn.active,
+[class~="border-fleeca-green"].active {
+  background: linear-gradient(135deg, #a855f7, #7e22ce) !important;
+  color: #fff !important;
+  border-color: rgba(216, 180, 254, .42) !important;
+  box-shadow: 0 5px 16px rgba(168, 85, 247, .20) !important;
+}
+
+.notification {
+  color: var(--mdt-text) !important;
+  background: linear-gradient(135deg, #20152a, #111014) !important;
+  border: 1px solid var(--mdt-border) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .42), 0 0 24px rgba(168, 85, 247, .08) !important;
+}
+
+.notification::before {
+  background: linear-gradient(180deg, #d8b4fe, #a855f7, #7e22ce) !important;
+}
+
+.notification-close { color: var(--mdt-muted) !important; }
+.notification-close:hover { color: var(--mdt-text) !important; background: rgba(216, 180, 254, .10) !important; }
+
+.card-face {
+  border: 1px solid rgba(216, 180, 254, .20);
+  box-shadow: inset 0 1px rgba(255, 255, 255, .07), 0 16px 36px rgba(0, 0, 0, .32);
+}
+
+.card-front {
+  background:
+    radial-gradient(circle at 84% 18%, rgba(168, 85, 247, .28), transparent 34%),
+    linear-gradient(145deg, #21152c 0%, #111014 58%, #0a0a0b 100%) !important;
+}
+
+.card-back {
+  background: linear-gradient(145deg, #171718 0%, #0a0a0b 100%) !important;
+}
+
+.card-chip {
+  background: linear-gradient(135deg, #d8b4fe, #8b5cf6) !important;
+  color: rgba(20, 10, 30, .8) !important;
+}
+
+/* Several bundled banking panels use inline teal colors, so override those too. */
+[style*="#0C1A1E"],
+[style*="#0E1E24"],
+[style*="#0F1E24"],
+[style*="#091318"],
+[style*="#0A1519"],
+[style*="#112430"],
+[style*="#112028"] {
+  background: radial-gradient(ellipse at 88% 0%, rgba(168, 85, 247, .10), transparent 38%),
+              linear-gradient(145deg, #171718, #0a0a0b) !important;
+  border-color: var(--mdt-border) !important;
+}
+
+[style*="rgba(88,157,181"]:not([style*="radial-gradient"]),
+[style*="rgba(88, 157, 181"]:not([style*="radial-gradient"]) {
+  background: linear-gradient(135deg, rgba(168, 85, 247, .16), rgba(126, 34, 206, .10)) !important;
+  border-color: rgba(216, 180, 254, .28) !important;
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, .18) !important;
+}
+
+[style*="#1A3040"],
+[style*="#152530"],
+[style*="#15252B"] {
+  border-color: rgba(255, 255, 255, .12) !important;
+}
+
+button[style*="#589DB5"],
+button[style*="#6BB4C8"],
+button[style*="#3D7A91"],
+button[style*="linear-gradient(135deg, #589DB5"],
+button[style*="linear-gradient(135deg, #6BB4C8"] {
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 52%, #7e22ce 100%) !important;
+  border-color: rgba(216, 180, 254, .34) !important;
+  color: #fff !important;
+}
+
+[style*="border-top-color: #6BB4C8"] {
+  border-top-color: #d8b4fe !important;
+  border-right-color: #a855f7 !important;
+}
+
+div[style*="width: 100%; background: linear-gradient(90deg, #3D7A91"] {
+  background: linear-gradient(90deg, #7e22ce 0%, #a855f7 35%, #d8b4fe 65%, #a855f7 100%) !important;
+}
+
+i[style*="#6BB4C8"],
+i[style*="#589DB5"],
+i[style*="#3D7A91"] {
+  background: linear-gradient(135deg, #d8b4fe, #a855f7) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.organization-badge,
+.personal-badge {
+  background-color: rgba(168, 85, 247, .72) !important;
+  color: #fff !important;
+}
+
+.platinum-badge {
+  background: linear-gradient(135deg, rgba(216, 180, 254, .92), rgba(126, 34, 206, .92)) !important;
+  color: #160b20 !important;
+}
+
+.selection-indicator {
+  background: linear-gradient(90deg, #7e22ce, #d8b4fe, #a855f7) !important;
+}
+
+.pagination-btn:hover:not(.disabled) {
+  border-color: rgba(216, 180, 254, .45) !important;
+  box-shadow: 0 0 16px rgba(168, 85, 247, .12);
+}
+
+/* Refine the actual Svelte panels whose backgrounds are set as inline styles. */
+[class~="w-full"][class~="h-full"][class~="rounded-xl"][class~="overflow-hidden"][class~="relative"] {
+  background: radial-gradient(ellipse at 10% 0%, rgba(168, 85, 247, .12), transparent 36%),
+              linear-gradient(145deg, #1a1622 0%, #111014 60%, #0a0a0b 100%) !important;
+  border-color: rgba(216, 180, 254, .16) !important;
+  box-shadow: 0 24px 65px rgba(0, 0, 0, .42), 0 0 32px rgba(168, 85, 247, .07) !important;
+}
+
+[class~="p-4"][class~="rounded-lg"][class~="mb-6"][class~="relative"][class~="overflow-hidden"] {
+  background: radial-gradient(ellipse at 92% 0%, rgba(168, 85, 247, .12), transparent 42%),
+              linear-gradient(135deg, #17151c, #111014) !important;
+  border: 1px solid rgba(255, 255, 255, .10) !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .035), 0 8px 24px rgba(0, 0, 0, .20);
+}
+
+[class~="p-6"][class~="text-white"][class~="relative"][class~="overflow-hidden"] {
+  background: radial-gradient(ellipse at 88% 8%, rgba(168, 85, 247, .14), transparent 38%),
+              linear-gradient(145deg, #17151c, #0e0e0f) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, .10) !important;
+}
+
+[class~="border-t"][class~="border-b"][class~="border-fleeca-border"] {
+  background: rgba(255, 255, 255, .025) !important;
+  border-color: rgba(255, 255, 255, .08) !important;
+}
+
+[class~="overflow-y-auto"][class~="flex-1"][class~="pr-2"][class~="hide-scrollbar"][class~="bg-fleeca-bg"][class~="rounded-lg"][class~="p-4"] {
+  background: radial-gradient(ellipse at 90% 0%, rgba(168, 85, 247, .045), transparent 42%), #101014 !important;
+  border-color: rgba(255, 255, 255, .09) !important;
+  border-radius: 10px !important;
+}
+
+[class~="rounded-lg"][class~="overflow-hidden"][class~="group"][class~="animate-slideUp"][class~="transition-all"] {
+  background: linear-gradient(145deg, rgba(255, 255, 255, .035), rgba(255, 255, 255, .018)), #121116 !important;
+  border: 1px solid rgba(216, 180, 254, .12) !important;
+  border-radius: 9px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .18) !important;
+}
+
+[class~="p-3"][class~="rounded-lg"][class~="mt-2"][class~="transition-colors"][class~="duration-300"] {
+  background: rgba(255, 255, 255, .035) !important;
+  border: 1px solid rgba(255, 255, 255, .055) !important;
+  border-radius: 7px !important;
+}
+
+div.absolute[style*="radial-gradient"][style*="rgba(88,157,181"] {
+  background: radial-gradient(circle, rgba(168, 85, 247, .12), transparent 68%) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Give the banking surfaces a cleaner, more deliberate hierarchy. */
+[style*="background: #0C1A1E"],
+[style*="background:#0C1A1E"] {
+  border-radius: 14px !important;
+}
+
+[style*="background: #0E1E24"],
+[style*="background:#0E1E24"] {
+  border-radius: 12px !important;
+  box-shadow: inset 0 1px rgba(255,255,255,.035), 0 14px 34px rgba(0,0,0,.22) !important;
+}
+
+[style*="linear-gradient(160deg, #0A1519"] {
+  background: radial-gradient(ellipse at 96% 0%, rgba(168,85,247,.13), transparent 35%),
+              linear-gradient(145deg, #1b1722 0%, #111014 68%, #0e0e0f 100%) !important;
+}
+
+[style*="background: #0F1E24"],
+[style*="background:#0F1E24"] {
+  background: linear-gradient(145deg, #17151c, #111014) !important;
+  border-radius: 10px !important;
+}
+
+/* Transaction dialogs and account action controls still carry legacy teal inline styles. */
+[class~="max-w-[500px]"][class~="rounded-xl"][class~="shadow-card"] {
+  background: linear-gradient(145deg, #191520, #0f0e12) !important;
+  border: 1px solid rgba(216,180,254,.18) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 24px 64px rgba(0,0,0,.48), 0 0 28px rgba(168,85,247,.08) !important;
+}
+
+[class~="p-5"][class~="border-b"] {
+  background: linear-gradient(135deg, #1b1624, #131116) !important;
+  border-color: rgba(216,180,254,.14) !important;
+}
+
+[class~="p-5"][class~="border-t"] {
+  background: #100e13 !important;
+  border-color: rgba(216,180,254,.14) !important;
+}
+
+button[style*="#589DB5"],
+button[style*="#6BB4C8"],
+button[style*="#3D7A91"],
+button[style*="linear-gradient(135deg, #589DB5"],
+button[style*="linear-gradient(135deg, #6BB4C8"] {
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 54%, #7e22ce 100%) !important;
+  background-size: 160% 160% !important;
+  border: 1px solid rgba(216,180,254,.34) !important;
+  color: #fff !important;
+  box-shadow: 0 7px 20px rgba(168,85,247,.22) !important;
+}
+
+/* The live deposit button keeps these classes as Svelte refreshes its inline style. */
+button[class~="py-3"][class~="shadow-sm"][class~="text-white"]:not(:disabled),
+button[class~="py-3"][class~="shadow-sm"][class~="text-white"]:not(:disabled):hover {
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 54%, #7e22ce 100%) !important;
+  background-color: #a855f7 !important;
+  border: 1px solid rgba(216,180,254,.34) !important;
+  color: #fff !important;
+  box-shadow: 0 7px 20px rgba(168,85,247,.24) !important;
+}
+
+/* Keep the inline radial decoration soft and circular, without a rectangular fill. */
+div[style*="radial-gradient(circle, rgba(88,157,181"] {
+  background: radial-gradient(circle, rgba(168,85,247,.14), transparent 68%) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+button,
+.account-card,
+.clean-card,
+.notification,
+input,
+select,
+textarea {
+  transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.account-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.32), 0 0 20px rgba(168,85,247,.08) !important;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgba(216,180,254,.72) !important;
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, .025); }
+::-webkit-scrollbar-thumb { background: rgba(168, 85, 247, .42); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(192, 132, 252, .7); }

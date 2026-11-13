@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <link rel="stylesheet" href="./fontawesome.min.css" />
+
+    <script src="./tailwindcss.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    screens: {
+                        'xs':   '1280px',
+                        '2k':   '2560px',
+                        '4k':   '3840px',
+                    },
+                    colors: {
+                        'fleeca': {
+                            'green': '#A855F7',
+                            'light-green': '#D8B4FE',
+                            'dark-green': '#7E22CE',
+                            'bg': '#0A0A0B',
+                            'card': '#0E0E0F',
+                            'card-hover': '#171718',
+                            'text': '#F4E8FF',
+                            'text-secondary': '#9D90B8',
+                            'border': '#332943',
+                            'hover': '#20152A'
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'Segoe UI', 'Arial', 'sans-serif'],
+                        'display': ['Inter', 'Segoe UI', 'Arial', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'card': '0 4px 12px rgba(0, 0, 0, 0.3)',
+                        'hover': '0 6px 16px rgba(0, 0, 0, 0.4)',
+                        'glow': '0 0 18px rgba(168, 85, 247, 0.22)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./build/bundle.css" />
+    <link rel="stylesheet" href="./mdt-theme.css" />
+    <link rel="stylesheet" href="./neo-layout.css" />
+
+    <script defer src="./build/bundle.js"></script>
+    <script defer src="./layout.js"></script>
+
+    <title>Fleeca Banking</title>
+</head>
+
+<body class="font-sans text-fleeca-text bg-transparent">
+    <nav class="neo-sidebar-nav" aria-label="Banking dashboard sections">
+        <button type="button" class="neo-nav-item active" data-neo-tab="dashboard"><i class="fa-solid fa-grip"></i><span>Dashboard</span></button>
+        <button type="button" class="neo-nav-item" data-neo-tab="accounts"><i class="fa-regular fa-credit-card"></i><span>Accounts</span></button>
+        <button type="button" class="neo-nav-item" data-neo-tab="transactions"><i class="fa-regular fa-file-lines"></i><span>Transactions</span></button>
+        <button type="button" class="neo-nav-item" data-neo-tab="cards"><i class="fa-regular fa-credit-card"></i><span>Cards</span></button>
+        <button type="button" class="neo-nav-item" data-neo-tab="transfer"><i class="fa-solid fa-arrow-right-arrow-left"></i><span>Transfer</span></button>
+        <button type="button" class="neo-nav-item support" data-neo-tab="support"><i class="fa-regular fa-circle-question"></i><span>Support</span></button>
+    </nav>
+</body>
+
+</html>

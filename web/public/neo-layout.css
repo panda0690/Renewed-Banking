@@ -1,0 +1,321 @@
+/* Neo-Fintech layout; layout.js moves the existing Svelte nodes without cloning them. */
+html, body { background: transparent !important; }
+body { overflow: hidden; }
+
+.neo-overlay {
+  position: fixed !important;
+  inset: 50% auto auto 50% !important;
+  width: min(92vw, 1500px) !important;
+  height: min(86vh, 850px) !important;
+  max-width: 1500px !important;
+  max-height: 850px !important;
+  bottom: auto !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  overflow: visible !important;
+  animation: none !important;
+}
+.neo-overlay.is-maximized { inset: 2vh auto auto 2vw !important; width: 96vw !important; height: 96vh !important; transform: none !important; }
+.neo-overlay.is-minimized { height: 58px !important; top: 18px !important; transform: translateX(-50%) !important; }
+.neo-overlay.is-minimized .neo-modal { height: 58px !important; }
+.neo-overlay.is-minimized .neo-content-shell > .neo-sidebar,
+.neo-overlay.is-minimized .neo-content-shell > .neo-workspace > :not(.neo-topbar) { display: none !important; }
+
+div.neo-modal.w-full.h-full.rounded-xl.overflow-hidden.relative {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(168, 85, 247, .35) !important;
+  border-radius: 20px !important;
+  background: linear-gradient(135deg, rgba(38, 20, 72, .72) 0%, rgba(18, 11, 36, .80) 100%) !important;
+  -webkit-backdrop-filter: blur(22px) !important;
+  backdrop-filter: blur(22px) !important;
+  box-shadow: 0 25px 60px rgba(10, 5, 25, .75), inset 0 1px rgba(255,255,255,.1) !important;
+}
+
+.neo-modal > .absolute.inset-0.pointer-events-none { background: radial-gradient(ellipse at top right, rgba(168,85,247,.10), transparent 55%) !important; }
+
+div.neo-content-shell.relative.z-10.w-full.h-full.p-6.flex.flex-col {
+  position: relative !important;
+  z-index: 2 !important;
+  display: grid !important;
+  grid-template-columns: 240px minmax(0, 1fr) !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.neo-sidebar {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  padding: 72px 14px 18px 18px;
+  border-right: 1px solid rgba(168,85,247,.4);
+  background: linear-gradient(180deg, rgba(20,12,38,.28), rgba(13,9,25,.16));
+  box-shadow: 2px 0 18px rgba(147,51,234,.25);
+}
+
+.neo-sidebar > .flex.items-center {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-height: 52px;
+  padding: 0 8px;
+}
+
+.neo-sidebar > .flex.items-center > div:first-child {
+  width: 30px !important;
+  height: 30px !important;
+  margin: 0 !important;
+}
+
+.neo-sidebar h1 {
+  color: #f6efff !important;
+  font-size: 20px !important;
+  line-height: 1.1;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase;
+}
+
+.neo-sidebar p { color: #c9a8f0 !important; font-size: 11px !important; }
+.neo-sidebar-nav { display: none; }
+.neo-sidebar > .neo-sidebar-nav { display: flex; flex: 1; flex-direction: column; gap: 8px; margin-top: 42px; }
+.neo-nav-item { width: 100%; min-height: 46px; display: flex; align-items: center; gap: 13px; padding: 0 14px; border: 0; border-radius: 12px; background: transparent; color: #a19bb8; font-size: 14px; font-weight: 500; letter-spacing: .01em; text-align: left; cursor: pointer; }
+.neo-nav-item i { width: 18px; text-align: center; font-size: 16px; }
+.neo-nav-item.active { color: #fff; background: linear-gradient(90deg, rgba(147,51,234,.55), rgba(126,34,206,.20)); box-shadow: inset 3px 0 #c084fc, 0 0 20px rgba(147,51,234,.22); }
+.neo-nav-item.support { margin-top: auto; }
+
+.neo-workspace { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: 76px 30px 22px 28px; }
+.neo-topbar { display: none !important; }
+.neo-window-header { position: absolute; z-index: 30; top: 0; left: 0; right: 0; display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; height: 56px; padding: 0 22px; border-bottom: 1px solid rgba(216,180,254,.18); border-radius: 20px 20px 0 0; background: linear-gradient(90deg, rgba(14,9,24,.84), rgba(26,13,43,.78), rgba(14,9,24,.84)); box-shadow: 0 5px 20px rgba(0,0,0,.12); }
+.neo-header-left { display: flex; align-items: center; justify-content: flex-start; }
+.neo-header-center { display: flex; align-items: center; justify-content: center; min-width: 0; }
+.neo-header-right { display: flex; align-items: center; justify-content: flex-end; min-width: 0; }
+.neo-window-controls { display: flex; align-items: center; gap: 8px; margin: 0; padding: 0; }
+.neo-window-dot { display: block !important; flex: 0 0 12px; width: 12px !important; min-width: 12px !important; height: 12px !important; min-height: 12px !important; padding: 0 !important; border: 0 !important; border-radius: 50% !important; opacity: 1 !important; visibility: visible !important; box-shadow: inset 0 1px 2px rgba(255,255,255,.35), 0 0 10px rgba(0,0,0,.2); transition: transform .16s ease, filter .16s ease; }
+.neo-window-dot:hover { transform: scale(1.18); filter: brightness(1.12); }
+.neo-window-dot.neo-dot-close { background: #ff5f57 !important; cursor: pointer; }
+.neo-window-dot.neo-dot-minimize { background: #febc2e; cursor: default; }
+.neo-window-dot.neo-dot-maximize { background: #28c840; cursor: default; }
+.neo-close-source { display: none !important; }
+.neo-workspace .neo-topbar > div.p-4.rounded-lg.mb-6.relative.overflow-hidden { margin: 0 !important; padding: 2px 0 0 !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; }
+.neo-topbar h2 { margin: 0 0 3px !important; color: #e2ddf5 !important; font-size: 15px !important; }
+.neo-topbar p { color: #a69bbd !important; font-size: 12px !important; }
+.neo-header-center h2 { margin: 0 !important; color: #eee7f8 !important; font-size: 13px !important; font-weight: 600 !important; white-space: nowrap; }
+.neo-header-right p { margin: 0 !important; color: #b9afc9 !important; font-size: 11px !important; white-space: nowrap; }
+.neo-topbar > div:not(.p-4) { margin-left: auto; }
+.neo-modal > button { position: absolute !important; z-index: 10 !important; top: 24px !important; right: 28px !important; width: 34px !important; height: 34px !important; border-radius: 50% !important; background: rgba(18,11,30,.7) !important; border: 1px solid rgba(255,255,255,.16) !important; }
+
+.neo-main { display: flex; flex: 1; min-width: 0; min-height: 0; flex-direction: column; }
+.neo-dashboard-content { display: grid !important; grid-template-rows: auto minmax(0, 1fr) !important; flex: 1; min-width: 0; min-height: 0; gap: 18px; overflow: hidden !important; }
+.neo-card-row { position: relative; display: flex !important; align-items: flex-start; gap: 27px; min-width: 0; min-height: 170px; overflow: visible !important; }
+.neo-carousel-arrow { position: absolute; z-index: 15; top: 64px; display: grid; width: 42px; height: 42px; place-items: center; padding: 0; border: 1px solid rgba(216,180,254,.34); border-radius: 50%; background: linear-gradient(145deg,rgba(43,27,65,.92),rgba(19,13,31,.92)); color: #eadcff; cursor: pointer; box-shadow: 0 7px 20px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.09),0 0 14px rgba(147,51,234,.12); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease; }
+.neo-carousel-arrow i { font-size: 13px; line-height: 1; }
+.neo-carousel-arrow:hover { transform: translateY(-2px); background: linear-gradient(145deg,rgba(83,42,119,.96),rgba(34,19,52,.96)); border-color: rgba(216,180,254,.72); box-shadow: 0 9px 24px rgba(0,0,0,.38),0 0 20px rgba(147,51,234,.3); }
+.neo-carousel-arrow:active { transform: translateY(0) scale(.96); }
+.neo-carousel-arrow.previous { left: 2px; }
+.neo-carousel-arrow.next { left: 647px; right: auto; }
+.neo-account-picker { position: relative !important; display: flex !important; flex: 1 1 auto; width: 100% !important; height: auto !important; min-height: 170px !important; overflow: visible !important; }
+.neo-account-picker h2, .neo-account-picker input[placeholder*="account" i], .neo-account-picker .relative.mb-4, .neo-account-picker .neo-hidden-filter { display: none !important; }
+.neo-card-scroller { display: block !important; width: 100% !important; height: auto !important; min-height: 170px !important; overflow-x: auto !important; overflow-y: visible !important; padding: 2px 0 10px !important; }
+.neo-card-scroller > .grid.grid-cols-1 { display: flex !important; width: max-content !important; min-width: 100% !important; gap: 27px !important; padding: 0 48px 8px !important; }
+.neo-card-scroller .card-container { position: relative !important; z-index: 1; flex: 0 0 282px !important; width: 282px !important; height: 170px !important; margin: 0 !important; overflow: visible !important; cursor: pointer !important; pointer-events: auto !important; }
+.neo-card-scroller .card-container:hover { z-index: 20 !important; }
+.neo-card-scroller .card-container.active-card { z-index: 10 !important; }
+.neo-card-scroller .credit-card { position: relative !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; width: 282px !important; height: 160px !important; overflow: hidden !important; border: 1px solid rgba(216,180,254,.25) !important; border-radius: 16px !important; box-shadow: 0 12px 28px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.12) !important; transform: none !important; transform-style: flat !important; }
+.neo-card-scroller .credit-card.is-flipped { transform: none !important; }
+.neo-card-scroller .card-container.active-card .credit-card { box-shadow: 0 0 24px rgba(168,85,247,.24), 0 14px 32px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.14) !important; }
+.neo-card-scroller .card-face { position: absolute !important; inset: 0 !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; width: 100% !important; height: 100% !important; padding: 14px !important; border-radius: 16px !important; backface-visibility: visible !important; -webkit-backface-visibility: visible !important; transition: opacity .18s ease !important; }
+.neo-card-scroller .card-front { transform: none !important; }
+.neo-card-scroller .card-back { position: absolute !important; inset: 0 !important; display: block !important; padding: 0 !important; background: linear-gradient(145deg,#19151f 0%,#0b0a0e 52%,#17111f 100%) !important; color: #eee8f4 !important; transform: none !important; }
+.neo-card-scroller .card-back .magnetic-stripe { width: 100% !important; height: 38px !important; margin: 18px 0 0 !important; background: linear-gradient(180deg,#050507 0%,#08080b 56%,#15131a 100%) !important; box-shadow: inset 0 1px rgba(255,255,255,.08),inset 0 -1px rgba(0,0,0,.8); }
+.neo-card-scroller .card-back .signature-strip { display: flex !important; justify-content: space-between !important; align-items: center !important; height: 30px !important; margin: 14px 9px 0 !important; padding: 0 10px !important; border: 1px solid rgba(255,255,255,.56) !important; border-radius: 4px !important; background: linear-gradient(180deg,#f5f3f6,#d9d5dc) !important; color: #211c27 !important; }
+.neo-card-scroller .card-back .signature { overflow: hidden; max-width: 72%; color: #302a35 !important; font-family: 'Brush Script MT', 'Segoe Script', cursive !important; font-size: 13px !important; font-weight: 600 !important; letter-spacing: .02em; text-overflow: ellipsis; white-space: nowrap; }
+.neo-card-scroller .card-back .cvv-container { display: flex !important; flex-direction: column !important; align-items: flex-end !important; justify-content: center; gap: 1px; color: #2b2630 !important; }
+.neo-card-scroller .card-back .cvv-label { color: #665f69 !important; font-size: 6px !important; line-height: 1 !important; }
+.neo-card-scroller .card-back .cvv-number { color: #29242e !important; font-size: 10px !important; font-weight: 800 !important; line-height: 1 !important; }
+.neo-card-scroller .card-back .card-info { position: absolute !important; left: 0 !important; bottom: 17px !important; width: 100%; margin: 0 !important; padding: 0 10px !important; }
+.neo-card-scroller .card-back .info-text { margin: 0 0 2px !important; color: #b7afbf !important; font-size: 5.5px !important; line-height: 1.25 !important; }
+.neo-card-scroller .card-back .bank-logo-small { position: absolute !important; right: 10px !important; bottom: 7px !important; display: flex !important; align-items: center; gap: 4px; color: #f4eaff !important; }
+.neo-card-scroller .card-back .bank-name-small { color: #e9dff1 !important; font-size: 7px !important; font-weight: 800 !important; letter-spacing: .08em !important; }
+.neo-card-scroller .card-content { display: flex !important; flex-direction: column !important; justify-content: space-between !important; padding: 0 !important; }
+.neo-card-scroller .bank-name { font-size: 1rem !important; letter-spacing: .07rem !important; }
+.neo-card-scroller .card-number { margin: .25rem 0 !important; font-size: .96rem !important; letter-spacing: .12rem !important; }
+.neo-card-scroller .card-details { margin-top: .35rem !important; }
+.neo-card-scroller .card-holder .value { font-size: .74rem !important; }
+.neo-card-art { position: absolute !important; inset: 0 !important; z-index: 0 !important; width: 100% !important; height: 100% !important; border-radius: inherit; pointer-events: none !important; }
+.neo-card-scroller .card-content, .neo-card-scroller .card-header, .neo-card-scroller .card-number, .neo-card-scroller .card-details, .neo-card-scroller .type-badge-container { position: relative; z-index: 1; }
+.neo-card-scroller .card-details, .neo-card-scroller .card-network { z-index: 2 !important; }
+.neo-card-scroller .card-details { margin-top: 0 !important; }
+.neo-card-scroller .card-chip { display: none !important; }
+.neo-card-scroller .organization-badge { background: linear-gradient(135deg, rgba(216,180,254,.92), rgba(126,34,206,.92)) !important; color: #160b20 !important; border: 0 !important; box-shadow: none !important; }
+.neo-card-scroller .external-flip-button { top: 10px !important; right: 10px !important; z-index: 10 !important; width: 26px !important; height: 26px !important; border-radius: 8px !important; color: white !important; background: rgba(168,85,247,.35) !important; border: 1px solid rgba(192,132,252,.5) !important; box-shadow: 0 4px 12px rgba(126,34,206,.28) !important; }
+.neo-card-scroller .neo-extra-flip { display: none !important; }
+.neo-card-scroller .network-circles .neo-silver-circle-one { background: rgba(255,255,255,.35) !important; backdrop-filter: blur(4px); mix-blend-mode: normal !important; }
+.neo-card-scroller .network-circles .neo-silver-circle-two { background: rgba(255,255,255,.18) !important; backdrop-filter: blur(4px); mix-blend-mode: normal !important; }
+.neo-card-scroller .selection-indicator { bottom: -8px !important; }
+.neo-card-paging { position: absolute !important; z-index: 12 !important; inset: 78px 0 auto 0 !important; display: flex !important; align-items: center !important; justify-content: space-between !important; margin: 0 !important; padding: 0 !important; pointer-events: none !important; }
+.neo-account-picker .neo-card-paging { display: none !important; }
+.neo-account-picker .fa-chevron-left,.neo-account-picker .fa-chevron-right,.neo-account-picker .fa-arrow-left { display: none !important; }
+.pagination-btn,.pagination-btn * { display: none !important; }
+.neo-card-paging span { display: none !important; }
+.neo-card-paging .pagination-btn { pointer-events: auto !important; width: 38px !important; height: 38px !important; border-radius: 50% !important; color: #d8b4fe !important; background: rgba(23,15,35,.9) !important; border: 1px solid rgba(216,180,254,.28) !important; }
+
+.neo-account-area { display: flex; min-width: 0; min-height: 0; }
+.neo-account-panel { display: flex !important; flex: 1 !important; min-width: 0 !important; min-height: 0 !important; flex-direction: column !important; gap: 14px !important; overflow: auto !important; }
+.neo-summary-card { position: relative !important; flex: 0 0 auto !important; display: block !important; margin: 0 !important; overflow: hidden !important; border: 1px solid rgba(192,132,252,.28) !important; border-radius: 18px !important; background: radial-gradient(ellipse at 88% 50%,rgba(147,51,234,.15),transparent 34%),linear-gradient(135deg,rgba(34,19,58,.76),rgba(16,10,30,.82)) !important; box-shadow: inset 0 1px rgba(255,255,255,.07),0 16px 36px rgba(0,0,0,.25),0 0 26px rgba(147,51,234,.08) !important; }
+.neo-action-divider-source { display: none !important; }
+.neo-balance-row { position: relative; z-index: 1; display: flex; flex-direction: row; justify-content: space-between; align-items: center; width: 100%; min-height: 164px; gap: 30px; padding: 22px 28px; }
+.neo-summary-card .neo-balance-row > .p-6.text-white.relative.overflow-hidden { flex: 1 1 auto; min-width: 0; padding: 4px !important; background: transparent !important; border: 0 !important; }
+.neo-balance-row .text-4xl.font-bold { color: #fff !important; font-size: clamp(34px, 2.8vw, 44px) !important; font-weight: 750 !important; letter-spacing: -.8px !important; font-variant-numeric: tabular-nums; line-height: 1.05 !important; text-shadow: 0 3px 18px rgba(192,132,252,.14); }
+.neo-balance-row > .border-t.border-b { display: flex !important; flex: 0 0 auto; align-items: center; padding: 0 !important; border: 0 !important; background: transparent !important; }
+.neo-balance-row .text-xs.uppercase { color: #b8b0d0 !important; font-size: 9px !important; font-weight: 700 !important; letter-spacing: .13em !important; }
+.neo-balance-row .text-xs:not(.uppercase) { color: #9c91b2 !important; font-size: 10px !important; }
+.neo-balance-row .text-sm.text-white\/80.font-medium { margin-top: 7px !important; color: #e8def5 !important; font-size: 13px !important; font-weight: 650 !important; }
+.neo-balance-row > .grid.grid-cols-3.gap-3.p-4.bg-fleeca-card { position: relative; display: flex !important; flex: 0 0 42% !important; align-items: center; justify-content: center !important; gap: 15px !important; width: 42% !important; min-height: 110px; margin-left: auto; padding: 0 0 0 20px !important; border: 0 !important; border-left: 1px solid rgba(216,180,254,.16) !important; background: transparent !important; }
+.neo-balance-row .grid-cols-3.gap-3.p-4 > button { display: flex !important; width: 82px !important; height: 82px !important; min-width: 82px !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 6px !important; padding: 8px !important; border-radius: 50% !important; background: linear-gradient(145deg,rgba(31,21,46,.92),rgba(17,12,28,.92)) !important; color: #f4e8ff !important; font-size: 10px !important; font-weight: 650 !important; letter-spacing: .01em !important; transition: transform .18s ease, box-shadow .18s ease, background .18s ease !important; }
+.neo-balance-row .grid-cols-3.gap-3.p-4 > button:nth-of-type(1) { border: 2px solid #c084fc !important; box-shadow: 0 0 22px rgba(168,85,247,.3) !important; }
+.neo-balance-row .grid-cols-3.gap-3.p-4 > button:nth-of-type(2) { border: 2px solid #e879f9 !important; box-shadow: 0 0 22px rgba(232,121,249,.25) !important; }
+.neo-balance-row .grid-cols-3.gap-3.p-4 > button:nth-of-type(3) { border: 1px solid rgba(255,255,255,.3) !important; box-shadow: 0 0 18px rgba(255,255,255,.07) !important; }
+.neo-balance-row .grid-cols-3.gap-3.p-4 > button i { display: block !important; margin: 0 !important; font-size: 17px !important; line-height: 1 !important; color: #e9d5ff !important; }
+.neo-balance-row .grid-cols-3.gap-3.p-4 > button span { display: block !important; margin: 0 !important; line-height: 1.2 !important; text-align: center !important; }
+.neo-balance-row .grid-cols-3.gap-3.p-4 > button { text-align: center !important; }
+.neo-summary-card .neo-balance-row .grid-cols-3.gap-3.p-4 > button:hover { transform: translateY(-2px) scale(1.025); background: linear-gradient(145deg,rgba(48,25,73,.96),rgba(22,13,38,.96)) !important; }
+
+.neo-transactions-card { display: flex; flex: 1 1 auto; min-width: 0; min-height: 170px; flex-direction: column; overflow: hidden; padding: 18px 24px; border: 1px solid rgba(168,85,247,.25); border-radius: 16px; background: rgba(20,11,40,.55); }
+.neo-transactions-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.neo-transactions-toolbar h3 { margin: 0 !important; color: #f3ecff !important; font-size: 13px !important; font-weight: 700 !important; letter-spacing: 1px !important; text-transform: uppercase; }
+.neo-transactions-toolbar h3::before { content: "Recent "; }
+.neo-transactions-toolbar .relative.mb-4 { width: 240px !important; margin: 0 !important; }
+.neo-transactions-toolbar .relative.mb-4 input { width: 240px !important; height: 36px; padding: 8px 12px 8px 34px !important; border-radius: 999px !important; background: rgba(12,8,22,.68) !important; }
+.neo-transaction-columns { display: none !important; }
+.neo-source-transaction-heading,.neo-empty-source-header,.neo-hidden-management,.neo-legacy-header,.neo-account-heading,.neo-account-search-source,.neo-export-button { display: none !important; }
+.neo-transactions-title { margin: 0 !important; color: #f3ecff !important; font-size: 13px !important; font-weight: 700 !important; letter-spacing: 1px !important; text-transform: uppercase; }
+.neo-transactions-title::before { content: "Recent "; }
+.neo-transaction-columns span:last-child { text-align: right; }
+.neo-transactions-card > .neo-transaction-list.overflow-y-auto.flex-1.pr-2.hide-scrollbar.bg-fleeca-bg.rounded-lg.p-4.border { display: flex !important; flex: 1 1 auto !important; min-height: 0 !important; flex-direction: column !important; gap: 8px !important; overflow-y: auto !important; overflow-x: hidden !important; padding: 6px 0 0 !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; }
+.neo-transaction-list > .text-center.py-8.bg-fleeca-card.rounded-lg.border.border-fleeca-border.animate-fadeIn.shadow-sm { display: flex !important; min-height: 180px; flex-direction: column; align-items: center; justify-content: center; margin: 4px 0 0 !important; padding: 24px !important; border: 1px solid rgba(192,132,252,.22) !important; border-radius: 14px !important; background: linear-gradient(135deg,rgba(35,20,57,.78),rgba(17,11,31,.68)) !important; box-shadow: inset 0 1px rgba(255,255,255,.045),0 10px 26px rgba(0,0,0,.18) !important; }
+.neo-transaction-list > .text-center.py-8.bg-fleeca-card.rounded-lg.border.border-fleeca-border.animate-fadeIn.shadow-sm > div { width: 48px !important; height: 48px !important; margin: 0 0 12px !important; border: 1px solid rgba(192,132,252,.28) !important; background: rgba(147,51,234,.16) !important; box-shadow: 0 0 24px rgba(147,51,234,.18); }
+.neo-transaction-list > .text-center.py-8.bg-fleeca-card.rounded-lg.border.border-fleeca-border.animate-fadeIn.shadow-sm h3 { color: #c9bbdc !important; font-size: 13px !important; font-weight: 500 !important; }
+.neo-transactions-card .neo-transaction-list .neo-transaction-row { overflow: visible !important; border: 0 !important; border-bottom: 1px solid rgba(255,255,255,.065) !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; }
+.neo-tx-cells { display: grid !important; grid-template-columns: minmax(0,1fr) auto; grid-template-rows: auto auto auto; align-items: center; gap: 6px 18px; padding: 12px !important; }
+.neo-tx-header,.neo-tx-body { display: contents !important; }
+.neo-tx-leading { grid-column: 1; grid-row: 1; display: flex !important; align-items: center; min-width: 0; }
+.neo-tx-leading > :first-child { display: none !important; }
+.neo-tx-title-group { display: flex !important; align-items: center; flex-wrap: wrap; gap: 6px; color: #f4e8ff !important; font-size: 12px !important; font-weight: 600 !important; }
+.neo-tx-reference { grid-column: 2; grid-row: 1; justify-self: end; color: #c3b6d9 !important; font-family: ui-monospace,Consolas,monospace; font-size: 11px !important; }
+.neo-tx-amount-group { grid-column: 1; grid-row: 2; display: flex !important; flex-direction: column; gap: 3px; }
+.neo-tx-time-group { grid-column: 2; grid-row: 2; text-align: right; }
+.neo-tx-message-box { grid-column: 1 / -1; grid-row: 3; margin-top: 2px !important; }
+.neo-tx-issuer,.neo-tx-message-box > :first-child { display: none !important; }
+.neo-tx-type { margin: 0 !important; padding: 4px 8px !important; border: 1px solid rgba(216,180,254,.16); border-radius: 999px !important; background: rgba(168,85,247,.12) !important; color: #d8b4fe !important; font-size: 10px !important; }
+.neo-tx-date { display: none !important; }
+.neo-tx-amount { color: #f87171 !important; font-size: 13px !important; font-weight: 700 !important; text-align: right; }
+.neo-tx-amount.text-green-400 { color: #4ade80 !important; }
+.neo-withdraw .neo-tx-amount:not(.neo-amount-has-sign)::before { content: "−"; }
+.neo-tx-receiver { color: #a69bbd !important; font-size: 10px !important; }
+.neo-tx-message { color: #948ca8 !important; font-size: 10px !important; }
+.neo-focus-transactions .neo-transactions-card { border-color: rgba(192,132,252,.72); box-shadow: 0 0 24px rgba(168,85,247,.18); }
+.neo-transactions-mode { grid-template-rows: minmax(0,1fr) !important; }
+.neo-transactions-mode .neo-card-row,.neo-transactions-mode .neo-summary-card { display: none !important; }
+.neo-transactions-mode .neo-account-area,.neo-transactions-mode .neo-account-panel { min-height: 0 !important; }
+.neo-transactions-mode .neo-transactions-card { height: 100%; min-height: 0; }
+.neo-transactions-mode .neo-transaction-list { flex: 1 1 auto !important; min-height: 0 !important; }
+.neo-transfer-title { display: none !important; }
+.neo-transfer-mode .neo-transactions-toolbar > h3:not(.neo-transfer-title) { display: none !important; }
+.neo-transfer-mode .neo-transactions-toolbar > .neo-transfer-title { display: block !important; }
+.neo-transfer-mode .neo-transfer-title::before { content: none !important; }
+.neo-transfer-hidden { display: none !important; }
+.neo-transfer-empty { padding: 28px 14px; color: #b8b0d0; font-size: 13px; text-align: center; }
+.neo-account-picker.neo-focus-cards .neo-card-scroller { outline: 1px solid rgba(192,132,252,.55); outline-offset: 6px; border-radius: 16px; }
+.neo-support-popover { position: absolute; z-index: 20; right: 26px; bottom: 22px; display: flex; flex-direction: column; gap: 6px; max-width: 300px; padding: 16px 18px; border: 1px solid rgba(192,132,252,.35); border-radius: 14px; background: rgba(22,12,40,.95); box-shadow: 0 14px 40px rgba(0,0,0,.42),0 0 24px rgba(168,85,247,.15); color: #f4e8ff; font-size: 12px; }
+.neo-support-popover span { color: #b8b0d0; }
+
+@media (max-width: 1100px) {
+  div.neo-content-shell.relative.z-10.w-full.h-full.p-6.flex.flex-col { grid-template-columns: 190px minmax(0,1fr) !important; }
+  .neo-sidebar { padding-left: 10px; padding-right: 10px; }
+  .neo-workspace { padding: 76px 18px 18px; }
+  .neo-balance-row { gap: 10px; padding: 14px; }
+  .neo-balance-row .text-4xl.font-bold { font-size: clamp(32px,3vw,40px) !important; }
+  .neo-balance-row .grid-cols-3.gap-3.p-4 { gap: 8px !important; }
+  .neo-balance-row .grid-cols-3.gap-3.p-4 > button { width: 70px !important; height: 70px !important; min-width: 70px !important; }
+  .neo-transaction-columns, .neo-tx-grid { grid-template-columns: minmax(90px,1fr) minmax(130px,2fr) 70px minmax(95px,1fr) minmax(100px,1fr); gap: 8px; }
+}
+
+@media (max-width: 760px) {
+  .neo-overlay { width: 96vw !important; height: 94vh !important; }
+  div.neo-content-shell.relative.z-10.w-full.h-full.p-6.flex.flex-col { display: flex !important; flex-direction: column !important; }
+  .neo-sidebar { width: 100%; height: auto; padding: 64px 14px 8px; border-right: 0; border-bottom: 1px solid rgba(168,85,247,.4); }
+  .neo-sidebar-nav { display: none; }
+  .neo-workspace { padding: 68px 12px 12px; }
+  .neo-dashboard-content { overflow-y: auto !important; }
+  .neo-balance-row { flex-direction: column; align-items: flex-start; }
+  .neo-balance-row > .grid.grid-cols-3.gap-3.p-4.bg-fleeca-card { width: 100% !important; flex-basis: 100% !important; margin-left: 0; border-left: 0 !important; border-top: 1px solid rgba(216,180,254,.16) !important; padding: 14px 0 0 !important; }
+  .neo-transactions-card { padding: 12px; }
+  .neo-transaction-columns, .neo-tx-cells { grid-template-columns: 78px minmax(110px,1fr) 65px; }
+  .neo-tx-grid { grid-template-columns: 78px minmax(110px,1fr) 65px; }
+  .neo-transaction-columns span:nth-child(3), .neo-transaction-columns span:nth-child(4), .neo-tx-reference, .neo-tx-type { display: none !important; }
+  .neo-tx-amount { text-align: right; }
+}
+
+/* Card flip: retain the native 3D rotation while giving both faces the Fleeca finish. */
+.neo-card-scroller .card-container { perspective: 1000px !important; }
+.neo-card-scroller .credit-card {
+  transform: rotateY(0deg) !important;
+  transform-style: preserve-3d !important;
+  overflow: visible !important;
+  transition: transform .62s cubic-bezier(.2,.72,.25,1) !important;
+  will-change: transform;
+}
+.neo-card-scroller .credit-card.is-flipped { transform: rotateY(180deg) !important; }
+.neo-card-scroller .card-face {
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  overflow: hidden !important;
+  transition: none !important;
+}
+.neo-card-scroller .card-front { transform: rotateY(0deg) !important; }
+.neo-card-scroller .card-back {
+  transform: rotateY(180deg) !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(216,180,254,.25) !important;
+  background: linear-gradient(145deg,rgba(32,18,53,.96),rgba(9,7,16,.98)) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,.12) !important;
+}
+.neo-card-scroller .card-back .neo-card-art { opacity: .94; }
+.neo-card-scroller .card-back > :not(.neo-card-art) { position: relative; z-index: 1; }
+.neo-card-scroller .card-back .magnetic-stripe {
+  position: relative !important;
+  z-index: 1 !important;
+  height: 32px !important;
+  margin: 16px -14px 0 !important;
+  border-top: 1px solid rgba(216,180,254,.18);
+  border-bottom: 1px solid rgba(216,180,254,.16);
+  background: linear-gradient(180deg,rgba(9,6,16,.96),rgba(25,13,39,.95)) !important;
+}
+.neo-card-scroller .card-back .signature-strip {
+  position: relative !important;
+  z-index: 1 !important;
+  height: 27px !important;
+  margin: 12px 0 0 !important;
+  border: 1px solid rgba(216,180,254,.48) !important;
+  border-radius: 6px !important;
+  background: linear-gradient(100deg,rgba(245,235,255,.97),rgba(208,174,239,.94)) !important;
+  box-shadow: 0 0 16px rgba(168,85,247,.28), inset 0 1px rgba(255,255,255,.85);
+}
+.neo-card-scroller .card-back .card-info,
+.neo-card-scroller .card-back .bank-logo-small { z-index: 1 !important; }
+.neo-card-scroller .card-back .info-text { color: rgba(245,235,255,.82) !important; text-shadow: 0 1px 4px rgba(7,4,12,.8); }
+.neo-card-scroller .card-back .bank-logo-small { text-shadow: 0 1px 8px rgba(168,85,247,.55); }
+
+/* Suppress the unexplained legacy picker glyph and pseudo-decoration; custom carousel arrows remain. */
+.neo-card-row::before, .neo-card-row::after,
+.neo-account-picker::before, .neo-account-picker::after,
+.neo-card-scroller::before, .neo-card-scroller::after { content: none !important; display: none !important; }
+.neo-account-picker > :not(.neo-card-scroller):not(.neo-card-paging) { display: none !important; }
+.neo-modal .fa-arrow-left { display: none !important; }
