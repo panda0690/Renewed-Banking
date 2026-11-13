@@ -1,4 +1,4 @@
-# Renewed Banking — DreamCity UI Redesign
+# Renewed Banking — UI Redesign
 
 Renewed Banking is a FiveM banking resource with a refreshed dark interface and violet accent theme for DreamCity RP. The redesign keeps the existing banking flows and Lua integrations while reorganizing the in-game UI into a dashboard with account cards, account actions, and transaction history.
 
