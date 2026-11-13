@@ -10,6 +10,20 @@ Renewed Banking is a FiveM banking resource with a refreshed dark interface and 
 - Responsive sizing for common FiveM display resolutions.
 - Styling is layered over the existing Svelte UI so account, transfer, and transaction behavior stays connected to the resource.
 
+## Preview
+
+### Dashboard
+
+![Renewed Banking dashboard with account cards, balance, and recent transactions](docs/preview/dashboard.png)
+
+### Transactions
+
+![Renewed Banking transactions view with search and recent activity](docs/preview/transactions.png)
+
+### Dashboard with empty transfer history
+
+![Renewed Banking dashboard showing the empty transfer history state](docs/preview/dashboard-empty-history.png)
+
 ## Resource setup
 
 Install the resource as `Renewed-Banking`, import `Renewed-Banking.sql`, and ensure its dependencies are started first:
